@@ -18,4 +18,8 @@ return  [
         // 'user' => 'root',
         // 'charset' => 'utf8mb4',
     ],
+    'security' => [
+        'first_key' => base64_encode('your_first_key'),
+        'second_key' => base64_encode('your_second_key'),
+    ]
 ];

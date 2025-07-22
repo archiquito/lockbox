@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use Core\Database;
 use Core\Validation;
 use App\Models\User;
 
@@ -30,21 +29,9 @@ class LoginController
                 return view('login');
             }
 
-            $passwordForm = $_POST['password'];
-            $passwordCrypt = password_verify($_POST['password'], PASSWORD_DEFAULT);
+            $user = User::getUserByEmail($email);
 
-            $DBCONN = new Database(config('database'));
-
-            $sql = "SELECT * FROM users WHERE email=:email";
-            $user = $DBCONN->query(
-                query: $sql,
-                class: User::class,
-                params: [
-                    'email' => $_POST['email'],
-                ]
-            )->fetch();
-
-            if ($user && password_verify($_POST['password'], $user->password)) {
+            if ($user && password_verify( $password, $user->password)) {
                 flash()->make('auth', ['id' => $user->id, 'name' => $user->name]);
 
                 return redirect('/notes');

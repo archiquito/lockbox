@@ -8,7 +8,7 @@ use App\Controllers\LogoutController;
 use App\Controllers\NotesController;
 use App\Middlewares\GuestMiddleware;
 use App\Middlewares\AuthMiddleware;
-use App\Controllers\SearchController;
+use App\Controllers\CryptNotesController;
 
 (new Route())
 
@@ -22,11 +22,14 @@ use App\Controllers\SearchController;
 
     //logged in routes
     ->get('/notes', [NotesController::class, 'index'], AuthMiddleware::class)
-    ->get('/notes-make', [NotesController::class, 'make'], AuthMiddleware::class)
-    ->post('/notes', [NotesController::class, 'make'], AuthMiddleware::class)
-    // ->get('/notes?search={search}', SearchController::class, AuthMiddleware::class)
-    // ->get('/notes/{id}', [NotesController::class, 'show'], AuthMiddleware::class)
-     ->post('/notes-update', [NotesController::class, 'update'], AuthMiddleware::class)
+    ->get('/notes/search', [NotesController::class, 'index'], AuthMiddleware::class)
+    ->get('/notes/make', [NotesController::class, 'make'], AuthMiddleware::class)
+    ->post('/notes/make', [NotesController::class, 'make'], AuthMiddleware::class)
+    ->post('/notes/update', [NotesController::class, 'update'], AuthMiddleware::class)
+    ->get('/notes/delete', [NotesController::class, 'delete'], AuthMiddleware::class)
+
+    ->get('/notes/show', [CryptNotesController::class, 'unCrypt'], AuthMiddleware::class)
+    ->get('/notes/hidden', [CryptNotesController::class, 'crypt'], AuthMiddleware::class)
 
     ->get('/logout', LogoutController::class, AuthMiddleware::class)
 

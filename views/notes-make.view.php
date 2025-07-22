@@ -12,7 +12,7 @@
             <?php endforeach; ?>
         </ul>
         <div class="bg-gray-300 p-4 w-full text-base-300">
-            <form action="/notes" method="POST">
+            <form action="/notes/make" method="POST">
                 <?= alertMsg('noteValidation', 'error') ?>
                 <div>
                     <label class="label text-base-200 font-bold">Título:</label>

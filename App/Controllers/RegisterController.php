@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use Core\Database;
 use Core\Validation;
 
@@ -31,16 +32,11 @@ class RegisterController
                 return view('register');
             }
 
-            $DBCONN = new Database(config('database'));
-            $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
-            $DBCONN->query(
-                query: $sql,
-                params: [
-                    'name' => $name,
-                    'email' => $email,
-                    'password' => $password,
-                ]
-            );
+            User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => $password
+            ]);
             flash()->make('msg', 'Usuário registrado com sucesso!');
         }
         return view('register');

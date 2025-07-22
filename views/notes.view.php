@@ -13,24 +13,32 @@
         <div class="flex flex-grow space-x-4 w-full px-5 z-0 mt-6">
             <?php include base_path('partials/menu-notes.php'); ?>
             <div class="bg-gray-300 p-4 w-full text-base-300">
-                <form action="/notes-update" method="POST">
+                <form action="/notes/update" method="POST">
                     <input type="hidden" name="id" value="<?= $selectedNote->id ?? '' ?>">
                     <div>
                         <label class="label text-base-200 font-bold">Título:</label>
-                        <input name="title" type="text" class="input w-full bg-white border-base-100" value="<?= $selectedNote->title ?? '' ?>" />
+                        <input
+                            name="title"
+                            type="text"
+                            class="input w-full bg-white border-base-100"
+                            value="<?= $selectedNote->title ?? '' ?>"
+                            <?php (!session()->get('uncrypt')) && print('disabled') ?> />
                     </div>
                     <div class="mt-6">
                         <label class="label text-base-200 font-bold">Nota:</label>
-                        <textarea name="note" class="textarea w-full bg-white border-base-100" placeholder="Escreva sua nota aqui..."><?= $selectedNote->note ?? '' ?></textarea>
+                        <textarea
+                            name="note"
+                            class="textarea w-full bg-white border-base-100"
+                            placeholder="Escreva sua nota aqui..."
+                            <?php (!session()->get('uncrypt')) && print('disabled') ?>><?= $selectedNote->note() ?? '' ?></textarea>
                     </div>
                     <div class="mt-6 flex justify-between">
 
-                        <button type="button" class="btn btn-error">Deletar</button>
-                        <button type="submit" class="btn btn-neutral">Atualizar</button>
+                        <a href="/notes/delete?id=<?= $selectedNote->id ?? '' ?>" class="btn btn-error">Deletar</a>
+                        <button type="submit" class="btn btn-neutral disabled:text-gray-400 border-gray-400" <?php (!session()->get('uncrypt')) ? print('disabled="disabled"') : print('') ?>>Atualizar</button>
                     </div>
                 </form>
             </div>
         <?php endif; ?>
         </div>
 </div>
-<?= var_dump($selectedNote->title) ?>

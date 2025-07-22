@@ -15,7 +15,6 @@ class SearchController
         $DBCONN = new Database(config('database'));
         $sql = "SELECT * FROM notes WHERE LOWER(title) like :search AND user_id=:user_id ORDER BY created_at DESC";
         $notes = $DBCONN->query(query: $sql, class: Notes::class, params: ['search' => "%$strCleaner%", 'user_id' => auth()['id']])->fetchAll();
-        var_dump($notes);
         return view('notes', ['user' => auth()['name'], 'notes' => $notes]);
     }
 }
