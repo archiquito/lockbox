@@ -10,6 +10,11 @@ LockBox é um projeto PHP para gerenciamento seguro de notas, utilizando Postgre
 - Navegador web
 - **Opcional:** [Herd](https://herd.dev/) para rodar o PHP localmente de forma simples
 
+## Tecnologias utilizadas
+
+- [Tailwind CSS](https://tailwindcss.com/) para estilização rápida e responsiva
+- [DaisyUI](https://daisyui.com/) para componentes UI prontos e integração com Tailwind
+
 ## Instalação
 
 1. **Clone o repositório:**
