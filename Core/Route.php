@@ -4,43 +4,59 @@ namespace Core;
 
 class Route
 {
-    public $routes = [];
+    private array $routes = [];
 
-    public function addRoute($httpMethod, $uri, $controller)
+    public function addRoute($httpMethod, $uri, $controller, $middleware = null)
     {
         if (is_string($controller)) {
 
             $data = [
                 'class' => $controller,
-                'method' => '__invoke'
+                'method' => '__invoke',
+                'middleware' => $middleware,
+                'parameters' => $this->getUriParameters($uri)
             ];
         }
         if (is_array($controller)) {
             $data = [
                 'class' => $controller[0],
-                'method' => $controller[1]
+                'method' => $controller[1],
+                'middleware' => $middleware,
+                'parameters' => $this->getUriParameters($uri)
             ];
         }
+
 
         $this->routes[$httpMethod][$uri] = $data;
     }
 
-    public function get($uri, $controller)
+    private function getUriParameters(string $uri): array
     {
-        $this->addRoute('GET', $uri, $controller);
+        if (! str_contains($uri, '{')) {
+            return [];
+        }
+
+        preg_match_all('/\{([^}]+)\}/', $uri, $matches);
+        //dump($matches[1]);
+        return $matches[1];
+    }
+
+    public function get($uri, $controller, $middleware = null)
+    {
+        $this->addRoute('GET', $uri, $controller, $middleware);
         return $this;
     }
 
-    public function post($uri, $controller)
+    public function post($uri, $controller, $middleware = null)
     {
-        $this->addRoute('POST', $uri, $controller);
+        $this->addRoute('POST', $uri, $controller, $middleware);
         return $this;
     }
 
     public function run()
     {
-        $uri = '/' . str_replace(['/', '.php'], '', parse_url($_SERVER['REQUEST_URI'])['path']);
-
+        $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+        //dump($this->routes);
         $httpMethod = $_SERVER['REQUEST_METHOD'];
         $routeInfo = $this->routes[$httpMethod][$uri];
 
@@ -52,6 +68,12 @@ class Route
         }
         $class = $routeInfo['class'];
         $method =  $routeInfo['method'];
+        $middleware = $routeInfo['middleware'];
+
+        if ($middleware) {
+            $m = new $middleware;
+            $m->handle();
+        }
 
         $c = new $class;
         $c->$method();

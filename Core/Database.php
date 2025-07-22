@@ -1,6 +1,9 @@
 <?php
+
 namespace Core;
+
 use PDO;
+use PDOException;
 
 class Database
 {
@@ -8,25 +11,48 @@ class Database
 
     public function __construct($config)
     {
-        $this->db = new PDO($this->getDsn($config));
+        try {
+            $dsn = $this->getDsn($config);
+            $user = $config['user'] ?? null;
+            $password = $config['password'] ?? null;
+
+            $this->db = new PDO(
+                $dsn,
+                $user,
+                $password,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                ]
+            );
+        } catch (PDOException $e) {
+            die("Erro de conexão com o banco de dados: " . $e->getMessage());
+        }
     }
 
     private function getDsn($config)
     {
         $driver = $config['driver'];
 
-        unset($config['driver']);
-
-        $dsn = $driver . ":" . http_build_query($config, '', ';');
-
-        if ($driver == 'sqlite') {
-
-            $dsn = $driver . ":" . $config['database'];
+        // Lógica específica para PostgreSQL
+        if ($driver === 'postgres') {
+            $dsnParts = [];
+            if (isset($config['host'])) {
+                $dsnParts[] = "host={$config['host']}";
+            }
+            if (isset($config['port'])) {
+                $dsnParts[] = "port={$config['port']}";
+            }
+            if (isset($config['dbname'])) {
+                $dsnParts[] = "dbname={$config['dbname']}";
+            }
+            return "pgsql:" . implode(';', $dsnParts);
+        } elseif ($driver === 'sqlite') {
+            return "sqlite:" . $config['database'];
+        } else {
+            unset($config['driver']);
+            return $driver . ":" . http_build_query($config, '', ';');
         }
-
-        return $dsn;
     }
-
 
     public function query($query, $class = null, $params = [])
     {
@@ -40,33 +66,4 @@ class Database
 
         return $prepare;
     }
-
-    // public function getAllBooks($search = '')
-    // {
-
-    //     $strCleaner = strToLower($search);
-    //     $sql = "SELECT * FROM books
-    //                  WHERE LOWER(`title`) like :search";
-    //     $prepare = $this->db->prepare($sql);
-    //     $prepare->bindValue(':search', "%$strCleaner%");
-    //     $prepare->setFetchMode(PDO::FETCH_CLASS, Book::class);
-    //     $prepare->execute();
-    //     return $prepare->fetchAll();
-
-    //     //return array_map(fn($item) => Book::make($item), $items);
-    // }
-
-    // public function getBook($id)
-    // {
-
-    //     $prepare = $this->db->prepare("SELECT * FROM books where id = :id");
-    //     $prepare->bindParam('id', $id);
-    //     $prepare->setFetchMode(PDO::FETCH_CLASS, Book::class);
-    //     $prepare->execute();
-    //     return $prepare->fetch();
-
-    //     // $book = Book::make($item);
-
-    //     // return $book;
-    // }
 }

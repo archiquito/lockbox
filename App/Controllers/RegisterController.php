@@ -18,7 +18,6 @@ class RegisterController
 
             $name =  $_POST['name'];
             $email =  $_POST['email'];
-            $confirm_email =  $_POST['confirm_email'];
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
             $validate = Validation::validate([
@@ -34,11 +33,11 @@ class RegisterController
 
             $DBCONN = new Database(config('database'));
             $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
-            $result = $DBCONN->query(
+            $DBCONN->query(
                 query: $sql,
                 params: [
-                    'name' => $_POST['name'],
-                    'email' => $_POST['email'],
+                    'name' => $name,
+                    'email' => $email,
                     'password' => $password,
                 ]
             );

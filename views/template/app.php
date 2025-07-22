@@ -9,17 +9,25 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="../../assets/images/file-lock.png">
     <title>LockBox</title>
+
 </head>
 
 <body>
-    <main class="mx-auto flex-col lg:flex-row">
-        <?php if (alertMsg('msg', 'success')): ?>
-            <div class="hero mt-10">
-                <?= alertMsg('msg', 'success') ?>
-            </div>
-        <?php endif ?>
+    <main class="mx-auto flex-col lg:flex-row  h-screen">
         <?php require "../views/{$view}.view.php" ?>
     </main>
+    <script>
+        const myDiv = document.getElementById('msg');
+
+        setTimeout(() => {
+            myDiv.classList.remove('opacity-100');
+            myDiv.classList.add('opacity-0');
+        }, 500);
+        setTimeout(() => {
+
+            myDiv.classList.add('hidden');
+        }, 2000);
+    </script>
 </body>
 
 </html>

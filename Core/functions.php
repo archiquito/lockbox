@@ -107,7 +107,7 @@ function alertMsg($nameSession, $type)
     if (empty($msg)) {
         return '';
     }
-    $html = '<div role="alert" class="alert alert-' . $type . '">';
+    $html = '<div role="alert" class="alert w-full alert-' . $type . '">';
     if (is_array($msg)) {
         $html .= '<ul>';
 

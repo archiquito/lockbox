@@ -47,7 +47,7 @@ class LoginController
             if ($user && password_verify($_POST['password'], $user->password)) {
                 flash()->make('auth', ['id' => $user->id, 'name' => $user->name]);
 
-                return redirect('/dashboard');
+                return redirect('/notes');
             } else {
                 flash()->make('loginValidation', ['Usuário ou senha estão incorretos!']);
                 return view('login');
