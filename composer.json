@@ -1,0 +1,20 @@
+{
+  "name": "chiqu/lockbox",
+  "authors": [
+    {
+      "name": "archiquito",
+      "email": "archiquito@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Core\\": "Core/",
+      "App\\": "App/",
+      "Models\\": "Models/"
+    },
+    "files": [
+      "./Core/functions.php"
+    ]
+  }
+}

@@ -14,7 +14,6 @@ class Route
                 'class' => $controller,
                 'method' => '__invoke',
                 'middleware' => $middleware,
-                'parameters' => $this->getUriParameters($uri)
             ];
         }
         if (is_array($controller)) {
@@ -22,23 +21,11 @@ class Route
                 'class' => $controller[0],
                 'method' => $controller[1],
                 'middleware' => $middleware,
-                'parameters' => $this->getUriParameters($uri)
             ];
         }
 
 
         $this->routes[$httpMethod][$uri] = $data;
-    }
-
-    private function getUriParameters(string $uri): array
-    {
-        if (! str_contains($uri, '{')) {
-            return [];
-        }
-
-        preg_match_all('/\{([^}]+)\}/', $uri, $matches);
-        //dump($matches[1]);
-        return $matches[1];
     }
 
     public function get($uri, $controller, $middleware = null)
@@ -56,7 +43,6 @@ class Route
     public function run()
     {
         $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-        //dump($this->routes);
         $httpMethod = $_SERVER['REQUEST_METHOD'];
         $routeInfo = $this->routes[$httpMethod][$uri];
 
