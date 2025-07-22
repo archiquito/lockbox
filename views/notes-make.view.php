@@ -7,9 +7,9 @@
     <div class="flex flex-grow space-x-4 w-full px-5 z-0 mt-6">
         <ul class="menu bg-white w-56 [&_li>*]:rounded-none p-0 me-auto">
             <li class="bg-gray-300 text-base-200 border-b border-gray-300 font-bold"><a>+ Nova nota</a></li>
-            <?php foreach ($notes as $note): ?>
+            <?php foreach ($notes as $note) { ?>
                 <li class="border-b border-gray-300 text-base-200"><a><?= $note->title ?></a></li>
-            <?php endforeach; ?>
+            <?php } ?>
         </ul>
         <div class="bg-gray-300 p-4 w-full text-base-300">
             <form action="/notes/make" method="POST">

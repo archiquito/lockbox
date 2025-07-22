@@ -6,11 +6,11 @@
         <ul class="menu menu-horizontal px-1">
             <li>
                     <?php
-                    if (session()->get('uncrypt')): ?>
+                    if (session()->get('uncrypt')) { ?>
                        <a href="/notes/hidden"> <img src="../../assets/images/eye.svg" alt="Eye Icon" class="fill-white" /></a>
-                    <?php else: ?>
+                    <?php } else { ?>
                         <a href="/notes/show"> <img src="../../assets/images/eye-off.svg" alt="Eye Icon" class="fill-white" /></a>
-                    <?php endif; ?>
+                    <?php } ?>
                 </a></li>
             <li>
                 <details>

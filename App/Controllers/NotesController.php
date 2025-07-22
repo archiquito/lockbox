@@ -2,9 +2,8 @@
 
 namespace App\Controllers;
 
-use Core\Database;
-use Core\Validation;
 use App\Models\Notes;
+use Core\Validation;
 
 class NotesController
 {
@@ -19,6 +18,7 @@ class NotesController
         } else {
             $selectedNote = $notes[0] ?? null; // Default to the first note if no ID is provided
         }
+
         return view('notes', ['user' => auth()['name'], 'notes' => $notes, 'selectedNote' => $selectedNote ?? null]);
     }
 
@@ -33,15 +33,17 @@ class NotesController
 
             if ($validate->validateFail()) {
                 flash()->make('noteValidation', $validate->arrValidations);
+
                 return view('notes-make', ['user' => auth()['name']]);
             }
             Notes::create([
                 'title' => $_POST['title'],
                 'note' => encrypt($_POST['note']),
-                'user_id' => auth()['id']
+                'user_id' => auth()['id'],
             ]);
 
             flash()->make('msg', 'Nota criada com sucesso!');
+
             return redirect('/notes');
         }
 
@@ -52,7 +54,7 @@ class NotesController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id = $_POST['id'];
-            $title =  $_POST['title'];
+            $title = $_POST['title'];
             $note = $_POST['note'];
             $userId = auth()['id'];
 
@@ -63,6 +65,7 @@ class NotesController
 
             if ($validate->validateFail()) {
                 flash()->make('noteValidation', $validate->arrValidations);
+
                 return view('notes-make', ['user' => auth()['name']]);
             }
             Notes::update([
@@ -74,6 +77,7 @@ class NotesController
             ]);
             flash()->make('msg', 'Nota atualizada com sucesso!');
             $selectedNote = Notes::getNote($id);
+
             return redirect('/notes?id=' . $selectedNote->id);
         }
     }
@@ -84,6 +88,7 @@ class NotesController
 
         Notes::delete($id);
         flash()->make('msg', 'Nota deletada com sucesso!');
+
         return redirect('/notes');
     }
 }

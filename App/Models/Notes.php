@@ -7,16 +7,21 @@ use Core\Database;
 class Notes
 {
     public $id;
+
     public $title;
+
     public $note;
+
     public $user_id;
+
     public $created_at;
+
     public $updated_at;
 
     public static function create($data)
     {
         $DBCONN = new Database(config('database'));
-        $sql = "INSERT INTO notes (title, note, user_id) VALUES (:title, :note, :user_id)";
+        $sql = 'INSERT INTO notes (title, note, user_id) VALUES (:title, :note, :user_id)';
         $DBCONN->query(
             query: $sql,
             params: $data
@@ -27,7 +32,7 @@ class Notes
     public static function update($data)
     {
         $DBCONN = new Database(config('database'));
-        $sql = "UPDATE notes SET title = :title, note = :note, updated_at = :updated_at WHERE id = :id AND user_id = :user_id";
+        $sql = 'UPDATE notes SET title = :title, note = :note, updated_at = :updated_at WHERE id = :id AND user_id = :user_id';
         $DBCONN->query(
             query: $sql,
             params: array_merge($data, ['updated_at' => date('Y-m-d H:i:s')])
@@ -37,12 +42,12 @@ class Notes
     public static function delete($id)
     {
         $DBCONN = new Database(config('database'));
-        $sql = "DELETE FROM notes WHERE id = :id AND user_id = :user_id";
+        $sql = 'DELETE FROM notes WHERE id = :id AND user_id = :user_id';
         $DBCONN->query(
             query: $sql,
             params: [
                 'id' => $id,
-                'user_id' => auth()['id']
+                'user_id' => auth()['id'],
             ]
         );
     }
@@ -51,19 +56,21 @@ class Notes
     {
         $DBCONN = new Database(config('database'));
         $search = $_GET['search'] ?? '';
-        $strCleaner = strToLower($search);
-        $sql = "SELECT * FROM notes WHERE LOWER(title) like :search AND user_id=:user_id ORDER BY created_at DESC";
+        $strCleaner = strtolower($search);
+        $sql = 'SELECT * FROM notes WHERE LOWER(title) like :search AND user_id=:user_id ORDER BY created_at DESC';
         $result = $DBCONN->query(query: $sql, class: Notes::class, params: ['search' => "%$strCleaner%", 'user_id' => auth()['id']])->fetchAll();
-        if (!$result) {
+        if (! $result) {
             return [];
         }
+
         return $result;
     }
 
     public static function getNote($id)
     {
         $DBCONN = new Database(config('database'));
-        $sql = "SELECT * FROM notes WHERE id=:id AND user_id=:user_id";
+        $sql = 'SELECT * FROM notes WHERE id=:id AND user_id=:user_id';
+
         return $DBCONN->query(query: $sql, class: Notes::class, params: ['id' => $id, 'user_id' => auth()['id']])->fetch();
     }
 
@@ -72,6 +79,7 @@ class Notes
         if (session()->get('uncrypt')) {
             return decrypt($this->note);
         }
+
         return str_repeat('•', strlen($this->note));
     }
 
@@ -80,6 +88,7 @@ class Notes
         if (session()->get('uncrypt')) {
             return decrypt($this->title);
         }
+
         return str_repeat('•', strlen($this->title));
     }
 }

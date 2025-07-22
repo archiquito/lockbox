@@ -6,8 +6,8 @@ class GuestMiddleware
 {
     public function handle()
     {
-        if (auth()){
-          return redirect('/dashboard');
+        if (auth()) {
+            return redirect('/dashboard');
         }
     }
 }

@@ -25,7 +25,7 @@ class Database
                 ]
             );
         } catch (PDOException $e) {
-            die("Erro de conexão com o banco de dados: " . $e->getMessage());
+            exit('Erro de conexão com o banco de dados: '.$e->getMessage());
         }
     }
 
@@ -45,12 +45,14 @@ class Database
             if (isset($config['dbname'])) {
                 $dsnParts[] = "dbname={$config['dbname']}";
             }
-            return "pgsql:" . implode(';', $dsnParts);
+
+            return 'pgsql:'.implode(';', $dsnParts);
         } elseif ($driver === 'sqlite') {
-            return "sqlite:" . $config['database'];
+            return 'sqlite:'.$config['database'];
         } else {
             unset($config['driver']);
-            return $driver . ":" . http_build_query($config, '', ';');
+
+            return $driver.':'.http_build_query($config, '', ';');
         }
     }
 

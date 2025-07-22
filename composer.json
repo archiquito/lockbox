@@ -6,7 +6,6 @@
       "email": "archiquito@gmail.com"
     }
   ],
-  "require": {},
   "autoload": {
     "psr-4": {
       "Core\\": "Core/",
@@ -16,5 +15,14 @@
     "files": [
       "./Core/functions.php"
     ]
+  },
+  "require-dev": {
+    "laravel/pint": "^1.24"
+  },
+  "scripts": {
+    "start": [
+      "php -S localhost:8000 -t public"
+    ],
+    "pint": "vendor/bin/pint"
   }
 }

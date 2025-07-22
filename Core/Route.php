@@ -24,19 +24,20 @@ class Route
             ];
         }
 
-
         $this->routes[$httpMethod][$uri] = $data;
     }
 
     public function get($uri, $controller, $middleware = null)
     {
         $this->addRoute('GET', $uri, $controller, $middleware);
+
         return $this;
     }
 
     public function post($uri, $controller, $middleware = null)
     {
         $this->addRoute('POST', $uri, $controller, $middleware);
+
         return $this;
     }
 
@@ -46,14 +47,14 @@ class Route
         $httpMethod = $_SERVER['REQUEST_METHOD'];
         $routeInfo = $this->routes[$httpMethod][$uri];
 
-        if (!isset($routeInfo)) {
+        if (! isset($routeInfo)) {
             abort(404);
         }
-        if (!class_exists($routeInfo['class'])) {
+        if (! class_exists($routeInfo['class'])) {
             abort(404);
         }
         $class = $routeInfo['class'];
-        $method =  $routeInfo['method'];
+        $method = $routeInfo['method'];
         $middleware = $routeInfo['middleware'];
 
         if ($middleware) {

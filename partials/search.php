@@ -6,8 +6,8 @@
 </div>
 <?php
 $alertMessage = alertMsg('msg', 'success');
-if (!empty($alertMessage)): ?>
+        if (! empty($alertMessage)) { ?>
     <div id="msg" class="flex w-full justify-center px-5 z-0 mt-6 opacity-100 transition-opacity duration-2000 ease-in-out">
         <?= $alertMessage ?>
     </div>
-<?php endif ?>
+<?php } ?>

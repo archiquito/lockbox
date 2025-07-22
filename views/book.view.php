@@ -5,31 +5,31 @@
 <h2 class="font-bold text-medium">Avaliações</h2>
 <hr />
 <div class="grid grid-cols-4 gap-4">
-    <?php if (count($reviews)): ?>
-        <?php foreach ($reviews as $item): ?>
+    <?php if (count($reviews)) { ?>
+        <?php foreach ($reviews as $item) { ?>
             <div class="col-span-3 mr-16">
                 <p> <?= $item->review ?> <?= str_repeat('&#9733;', $item->rating) ?></p>
             </div>
-        <?php endforeach ?>
-    <?php else: ?>
+        <?php } ?>
+    <?php } else { ?>
         <div class="col-span-3">
             <p>Nenhuma avaliação para esse livro</p>
         </div>
-    <?php endif ?>
+    <?php } ?>
     <div>
         <h3 class="font-bold"> Avalie o livro</h3>
-        <?php if (flash()->getSession('auth')): ?>
+        <?php if (flash()->getSession('auth')) { ?>
             <?php
-            if ($validations = flash()->get('reviewValidation')): ?>
+            if ($validations = flash()->get('reviewValidation')) { ?>
 
                 <div class="bg-red-500 text-red-800 p-2 rounded font-bold">
                     <ul>
-                        <?php foreach ($validations as $item): ?>
+                        <?php foreach ($validations as $item) { ?>
                             <li>• <?= $item ?></li>
-                        <?php endforeach ?>
+                        <?php } ?>
                     </ul>
                 </div>
-            <?php endif ?>
+            <?php } ?>
             <form action="/review-make" method="POST" class="space-y-4">
                 <input type="hidden" name="book_id" value="<?= $book->id ?>" />
                 <label class="text-stone-400 mb-3">Avalição:</label>
@@ -52,9 +52,9 @@
                     Enviar
                 </button>
             </form>
-        <?php else: ?>
+        <?php } else { ?>
             <p>Faça o login</p>
-        <?php endif ?>
+        <?php } ?>
     </div>
 
 </div>

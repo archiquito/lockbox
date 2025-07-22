@@ -1,7 +1,7 @@
 <?php
+
 namespace Core;
 
-use Core\Database;
 use App\Models\User;
 
 class Validation
@@ -15,10 +15,10 @@ class Validation
         foreach ($rules as $field => $fieldRules) {
 
             foreach ($fieldRules as $rule) {
-                $nRule = explode(":", $rule);
+                $nRule = explode(':', $rule);
                 if ($rule === 'confirmed') {
                     $validation->$rule($field, "confirm_{$field}", $data);
-                } else if ($nRule[0] === 'min' || $nRule[0] === 'max' || $nRule[0] === 'strong' || $nRule[0] === 'unique') {
+                } elseif ($nRule[0] === 'min' || $nRule[0] === 'max' || $nRule[0] === 'strong' || $nRule[0] === 'unique') {
                     $nRuleFunc = $nRule[0];
                     $validation->$nRuleFunc($field, $data, $nRule[1]);
                 } else {
@@ -32,7 +32,9 @@ class Validation
 
     private function unique($field, $data, $nRuleValue)
     {
-        if ($nRuleValue === 0) return;
+        if ($nRuleValue === 0) {
+            return;
+        }
 
         $db = new Database(config('database'));
         $sql = "SELECT * FROM $nRuleValue WHERE email=:email";
@@ -48,17 +50,19 @@ class Validation
             $this->arrValidations[] = "$field é obrigatório";
         }
     }
+
     private function email($field, $data)
     {
 
-        if (!filter_var($data[$field], FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($data[$field], FILTER_VALIDATE_EMAIL)) {
 
             $this->arrValidations[] = "$field é inválido";
         }
     }
+
     private function confirmed($field, $confirmedField, $data)
     {
-        if (($data[$field] !== $data[$confirmedField] || !filter_var($data[$confirmedField], FILTER_VALIDATE_EMAIL))) {
+        if (($data[$field] !== $data[$confirmedField] || ! filter_var($data[$confirmedField], FILTER_VALIDATE_EMAIL))) {
 
             $this->arrValidations[] = "$field de confirmação não é o mesmo";
         }
@@ -71,16 +75,17 @@ class Validation
             $this->arrValidations[] = "$field tem que ter um mínimo de 6 caracteres";
         }
     }
+
     private function max($field, $data, $nRuleValue)
     {
         if (strlen($data[$field]) > $nRuleValue) {
 
-            $this->arrValidations[] = "Senha tem que ter um máximo de 30 caracteres";
+            $this->arrValidations[] = 'Senha tem que ter um máximo de 30 caracteres';
         }
     }
 
     public function validateFail()
     {
-        return sizeof($this->arrValidations) > 0;
+        return count($this->arrValidations) > 0;
     }
 }

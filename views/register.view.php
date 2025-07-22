@@ -9,11 +9,11 @@
                 <p class="font-bold text-black text-xl">Registrar:</p>
                 <fieldset class="fieldset">
                     <form action="/register" method="POST">
-                        <?=alertMsg('registerValidation', 'error')?>
+                        <?= alertMsg('registerValidation', 'error')?>
                         <label class="label text-base-200">Seu nome:</label>
-                        <input name="name" type="text" class="input w-full" placeholder="nome" value="<?=getPost('name')?>" />
+                        <input name="name" type="text" class="input w-full" placeholder="nome" value="<?= getPost('name')?>" />
                         <label class="label text-base-200">Seu e-mail:</label>
-                        <input name="email" type="email" class="input w-full" placeholder="Email" value="<?=getPost('email')?>" />
+                        <input name="email" type="email" class="input w-full" placeholder="Email" value="<?= getPost('email')?>" />
                         <label class="label text-base-200">Confirme seu e-mail:</label>
                         <input name="confirm_email" type="email" class="input w-full" placeholder="confirme email" />
                         <label class="label text-base-200 mt-2">Sua senha:</label>

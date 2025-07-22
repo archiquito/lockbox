@@ -1,5 +1,6 @@
 <?php
-return  [
+
+return [
     'database' => [
         'driver' => 'postgres',
         'host' => '127.0.0.1',
@@ -21,5 +22,5 @@ return  [
     'security' => [
         'first_key' => env('ENCRYPT_FIRST_KEY'),
         'second_key' => env('ENCRYPT_SECOND_KEY'),
-    ]
+    ],
 ];

@@ -8,10 +8,12 @@ class Session
     {
         return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
     }
+
     public function set($key, $value)
     {
         return $_SESSION[$key] = $value;
     }
+
     public function destroy($key)
     {
         unset($_SESSION[$key]);

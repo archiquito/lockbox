@@ -1,5 +1,7 @@
 <?php
+
 namespace Core;
+
 use PDO;
 
 class Database
@@ -17,16 +19,15 @@ class Database
 
         unset($config['driver']);
 
-        $dsn = $driver . ":" . http_build_query($config, '', ';');
+        $dsn = $driver.':'.http_build_query($config, '', ';');
 
         if ($driver == 'sqlite') {
 
-            $dsn = $driver . ":" . $config['database'];
+            $dsn = $driver.':'.$config['database'];
         }
 
         return $dsn;
     }
-
 
     public function query($query, $class = null, $params = [])
     {

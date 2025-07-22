@@ -10,21 +10,21 @@
                 <fieldset class="fieldset">
                     <form action="/login" method="POST">
                         <?php
-                        if ($validations = flash()->get('loginValidation')): ?>
+                        if ($validations = flash()->get('loginValidation')) { ?>
                             <div role="alert" class="alert alert-error">
                                 <ul>
-                                    <?php foreach ($validations as $item): ?>
+                                    <?php foreach ($validations as $item) { ?>
                                         <li class="flex space-x-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg> <span class="leading-none"><?= $item ?></span></li>
-                                    <?php endforeach ?>
+                                    <?php } ?>
                                 </ul>
                             </div>
-                        <?php endif ?>
+                        <?php } ?>
                         <label class="label text-base-200">Seu e-mail:</label>
-                        <input name="email" type="email" class="input w-full" placeholder="Email" value="<?=getPost('email')?>" />
+                        <input name="email" type="email" class="input w-full" placeholder="Email" value="<?= getPost('email')?>" />
                         <label class="label text-base-200 mt-2">Sua senha:</label>
-                        <input name="password" type="password" class="input w-full" placeholder="Password" value="<?=getPost('password')?>"/>
+                        <input name="password" type="password" class="input w-full" placeholder="Password" value="<?= getPost('password')?>"/>
                         <div><a class="link link-hover  text-base-200">Forgot password?</a></div>
                         <button type="submit" class="btn btn-neutral mt-4 w-full">Logar</button>
                     </form>

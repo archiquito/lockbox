@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use Core\Database;
 use Core\Validation;
 
 class RegisterController
@@ -17,28 +16,30 @@ class RegisterController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $name =  $_POST['name'];
-            $email =  $_POST['email'];
+            $name = $_POST['name'];
+            $email = $_POST['email'];
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
             $validate = Validation::validate([
                 'name' => ['required'],
                 'email' => ['required', 'email', 'confirmed', 'unique:users'],
-                'password' => ['required', 'min:6', 'max:30']
+                'password' => ['required', 'min:6', 'max:30'],
             ], $_POST);
 
             if ($validate->validateFail()) {
                 flash()->make('registerValidation', $validate->arrValidations);
+
                 return view('register');
             }
 
             User::create([
                 'name' => $name,
                 'email' => $email,
-                'password' => $password
+                'password' => $password,
             ]);
             flash()->make('msg', 'Usuário registrado com sucesso!');
         }
+
         return view('register');
     }
 }
