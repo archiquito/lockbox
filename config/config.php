@@ -19,7 +19,7 @@ return  [
         // 'charset' => 'utf8mb4',
     ],
     'security' => [
-        'first_key' => base64_encode('your_first_key'),
-        'second_key' => base64_encode('your_second_key'),
+        'first_key' => env('ENCRYPT_FIRST_KEY'),
+        'second_key' => env('ENCRYPT_SECOND_KEY'),
     ]
 ];

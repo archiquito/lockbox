@@ -29,7 +29,19 @@ LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, uti
    - Edite o arquivo `config/config.php` se necessário.
    - O padrão já está configurado para usar Docker com PostgreSQL.
 
-3. **Suba o banco de dados com Docker Compose:**
+3. **Configure as variáveis de ambiente (.env):**
+
+   Crie ou edite o arquivo `.env` na raiz do projeto com as chaves de criptografia:
+
+   ```
+   ENCRYPT_FIRST_KEY="sua_primeira_chave"
+   ENCRYPT_SECOND_KEY="sua_segunda_chave"
+   ```
+- **Modelo:** veja o exmeplo no.env.template.
+
+   Essas chaves são usadas para criptografar e descriptografar as notas. Não compartilhe suas chaves em ambientes públicos.
+
+4. **Suba o banco de dados com Docker Compose:**
 
    ```sh
    docker-compose up -d
@@ -37,7 +49,7 @@ LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, uti
 
    Isso irá criar e iniciar o container do PostgreSQL.
 
-4. **Instale as dependências do projeto (se houver):**
+5. **Instale as dependências do projeto (se houver):**
    ```sh
    composer install
    ```
@@ -69,6 +81,7 @@ LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, uti
 
 - Certifique-se de que o container do banco de dados está rodando antes de acessar o sistema.
 - As credenciais do banco estão em `config/config.php` e devem coincidir com as do `docker-compose.yml`.
+- As chaves de criptografia devem estar corretamente configuradas no arquivo `.env`.
 - Para parar o banco de dados:
   ```sh
   docker-compose down

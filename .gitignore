@@ -1,0 +1,25 @@
+# Dependências do Composer
+/vendor/
+
+# Configurações de ambiente
+.env
+
+# Diretórios de cache e logs
+/storage/
+*.log
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Diretórios temporários
+/tmp/
+.cache/
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.swp
+
+# Banco de dados local
+database/*.sqlite
