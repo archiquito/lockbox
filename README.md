@@ -1,6 +1,6 @@
 # LockBox
 
-LockBox é um projeto PHP para gerenciamento seguro de notas, utilizando PostgreSQL e Docker.
+LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, utilizando PostgreSQL e Docker.
 
 ## Pré-requisitos
 
