@@ -1,12 +1,13 @@
 # LockBox
 
-LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, utilizando PostgreSQL e Docker.
+LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, utilizando PostgreSQL, Docker, Tailwind CSS e DaisyUI.
 
 ## Pré-requisitos
 
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [PHP 8+](https://www.php.net/downloads.php)
+- [Composer](https://getcomposer.org/) para gerenciar dependências PHP
 - Navegador web
 - **Opcional:** [Herd](https://herd.dev/) para rodar o PHP localmente de forma simples
 
@@ -14,6 +15,9 @@ LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, uti
 
 - [Tailwind CSS](https://tailwindcss.com/) para estilização rápida e responsiva
 - [DaisyUI](https://daisyui.com/) para componentes UI prontos e integração com Tailwind
+- [PostgreSQL](https://www.postgresql.org/) para armazenamento seguro dos dados
+- [Docker](https://www.docker.com/) para ambiente isolado e fácil configuração
+- [Composer](https://getcomposer.org/) para dependências PHP
 
 ## Instalação
 
@@ -37,9 +41,9 @@ LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, uti
    ENCRYPT_FIRST_KEY="sua_primeira_chave"
    ENCRYPT_SECOND_KEY="sua_segunda_chave"
    ```
-- **Modelo:** veja o exmeplo no.env.template.
 
-   Essas chaves são usadas para criptografar e descriptografar as notas. Não compartilhe suas chaves em ambientes públicos.
+   - **Modelo:** veja o exemplo em `.env.template`.
+   - Essas chaves são usadas para criptografar e descriptografar as notas. Não compartilhe suas chaves em ambientes públicos.
 
 4. **Suba o banco de dados com Docker Compose:**
 
@@ -49,7 +53,7 @@ LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, uti
 
    Isso irá criar e iniciar o container do PostgreSQL.
 
-5. **Instale as dependências do projeto (se houver):**
+5. **Instale as dependências do projeto com Composer:**
    ```sh
    composer install
    ```
