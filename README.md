@@ -81,6 +81,34 @@ LockBox é um projeto PHP para gerenciamento seguro de notas criptografadas, uti
 2. **Inicie o projeto com Herd:**  
    Basta abrir a pasta do projeto no Herd e acessar o endereço informado pelo aplicativo.
 
+## Scripts úteis via Composer
+
+Este projeto inclui scripts no `composer.json` para facilitar o desenvolvimento:
+
+- **Start:**  
+  Inicia o servidor embutido do PHP na porta 8000 apontando para a pasta `public`.  
+  Execute:
+
+  ```sh
+  composer start
+  ```
+
+  Isso é equivalente a rodar:
+
+  ```sh
+  php -S localhost:8000 -t public
+  ```
+
+- **Pint:**  
+  Executa o Laravel Pint para padronizar e formatar o código PHP automaticamente.  
+  Execute:
+  ```sh
+  composer pint
+  ```
+  Isso irá rodar o Pint e aplicar o padrão de formatação definido.
+
+Esses comandos ajudam a iniciar rapidamente o projeto e manter o código limpo e organizado.
+
 ## Observações
 
 - Certifique-se de que o container do banco de dados está rodando antes de acessar o sistema.
